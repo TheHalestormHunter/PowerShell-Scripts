@@ -1,0 +1,136 @@
+######################################################
+# Search Computers and Command
+# Author: HalestormHunter
+# Started: 30-Oct-2019
+# Status: Untested
+######################################################
+
+Clear-Host
+
+#Start Primary Loop
+
+$Starter = 1
+
+while ( $Starter -lt 2) {
+
+    $CTime = Get-Date -Format g
+
+    Write-Host -ForegroundColor Cyan "======================================="
+    Write-Host -ForegroundColor Cyan "Current Time: $CTime "
+    Write-Host -ForegroundColor Cyan "======================================="
+
+    Write-Host -ForegroundColor Green "====================================="
+    Write-Host -ForegroundColor Green "=    Enter Computer to Select       ="
+    Write-Host -ForegroundColor Green "====================================="
+
+    $Compute = Read-Host -Prompt "->"
+
+    Clear-Host
+
+    #Start Secondary Loop
+
+    $Secondary = 1
+
+    while ( $Secondary -lt 2 ) {
+    
+
+        #Display Selected Host
+
+        $ShortHand = Get-ADComputer -Identity $Compute | Select-Object -ExpandProperty Name
+
+        Write-Host -ForegroundColor Yellow -BackgroundColor Black "====================================="
+        Write-Host -ForegroundColor Yellow -BackgroundColor Black "You Selected -> $ShortHand           "
+        Write-Host -ForegroundColor Yellow -BackgroundColor Black "====================================="
+        #Give Command Options
+        
+        #Header
+        
+        Write-Host ""
+        Write-Host -ForegroundColor Green "Select Action Option"
+        Write-Host -ForegroundColor Green "===================================="
+        Write-Host ""
+        
+        #Options Pane
+
+        Write-Host -ForegroundColor Cyan "(1) List Users Logged on to $Shorthand "
+        Write-Host -ForegroundColor DarkYellow "(2) Logoff Users (Broken)"
+        Write-Host -ForegroundColor Red -BackgroundColor Black "(3) Restart Computer (Admin Only)"
+        Write-Host -ForegroundColor Red -BackgroundColor Black "(4) Shutdown Computer (Admin Only)"
+        Write-Host -ForegroundColor Gray "(5) Select Different Computer"
+        Write-Host -ForegroundColor Gray "(6) Exit"
+
+
+        $Selection = Read-Host -Prompt "->"
+
+        Clear-Host
+
+        #Option 1 List Users
+
+        if ( $Selection -eq 1 ){
+
+            Get-WmiObject -ComputerName $ShortHand -Class Win32_ComputerSystem | Select-Object -ExpandProperty UserName
+            Pause
+
+        }
+
+        #Option 2 Logoff Users
+
+        if ( $Selection -eq 2){
+
+            #Invoke-Command -ComputerName $ShortHand -ScriptBlock { logoff 2 }
+            Invoke-CimMethod -ClassName Win32_Operatingsystem -ComputerName $ShortHand -MethodName Win32Shutdown -Arguments @{ Flags = 4 }
+
+        }
+
+        #Option 3 Restart Computer
+        
+        if ( $Selection -eq 3){
+            
+            $Delay = Read-Host -Prompt "Action Delay in Seconds ->"
+
+            Start-Sleep -Seconds $Delay
+
+            Restart-Computer -ComputerName $ShortHand -Force
+
+        }
+
+        #Option 4 Stop Computer
+
+        if ( $Selection -eq 4 ){
+
+            $Delay = Read-Host -Prompt "Action Delay in Seconds ->"
+
+            Start-Sleep -Seconds $Delay
+
+            Stop-Computer -ComputerName $ShortHand -Force
+
+        }
+
+        #Option 5 Select New Computer
+
+        if ( $Selection -eq 5 ){
+
+            $Secondary = 5
+            $Compute = $null
+            $ShortHand = $null
+
+        }
+
+        #Option 6 Exit Script
+
+        if ( $Selection -eq 6){
+
+            $Secondary = 5
+            $Starter = 5
+            exit
+
+
+        }
+        
+    
+    }
+
+
+
+
+}
