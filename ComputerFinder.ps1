@@ -1,5 +1,5 @@
 ######################################################
-# Move AD Computers to correct OU
+# Find Computer Names
 # Author: HalestormHunter
 # Started: 9-Oct-2019
 # Status: Alpha
@@ -7,6 +7,11 @@
 
 Clear-Host
 
+$CTime = Get-Date -Format g
+
+Write-Host -ForegroundColor Cyan "======================================="
+Write-Host -ForegroundColor Cyan "Current Time: $CTime "
+Write-Host -ForegroundColor Cyan "======================================="
 
 while ( 1 -lt 2) {
 

@@ -7,6 +7,12 @@
 
 Clear-Host
 
+$CTime = Get-Date -Format g
+
+Write-Host -ForegroundColor Cyan "======================================="
+Write-Host -ForegroundColor Cyan "Current Time: $CTime "
+Write-Host -ForegroundColor Cyan "======================================="
+
 $loop1 = 1
 
 while (2 -gt 1) {

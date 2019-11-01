@@ -1,9 +1,15 @@
 ######################################################
-# Move AD Computers to correct OU
+# Clone AD Group Membership
 # Author: HalestormHunter
 # Started: 24-Oct-2019
 # Status: Tested
 ######################################################
+
+$CTime = Get-Date -Format g
+
+Write-Host -ForegroundColor Cyan "======================================="
+Write-Host -ForegroundColor Cyan "Current Time: $CTime "
+Write-Host -ForegroundColor Cyan "======================================="
 
 
 Write-Host -ForegroundColor Green "======================================="

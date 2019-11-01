@@ -54,10 +54,11 @@ while ( $Starter -lt 2) {
 
         Write-Host -ForegroundColor Cyan "(1) List Users Logged on to $Shorthand "
         Write-Host -ForegroundColor DarkYellow "(2) Logoff Users (Broken)"
-        Write-Host -ForegroundColor Red -BackgroundColor Black "(3) Restart Computer (Admin Only)"
-        Write-Host -ForegroundColor Red -BackgroundColor Black "(4) Shutdown Computer (Admin Only)"
-        Write-Host -ForegroundColor Gray "(5) Select Different Computer"
-        Write-Host -ForegroundColor Gray "(6) Exit"
+        Write-Host -ForegroundColor Red -BackgroundColor Black "(3) Restart Computer"
+        Write-Host -ForegroundColor Red -BackgroundColor Black "(4) Shutdown Computer"
+        Write-Host -ForegroundColor Red -BackgroundColor Black "(5) DELETE Computer from AD"
+        Write-Host -ForegroundColor Gray "(6) Select Different Computer"
+        Write-Host -ForegroundColor Gray "(7) Exit"
 
 
         $Selection = Read-Host -Prompt "->"
@@ -106,9 +107,17 @@ while ( $Starter -lt 2) {
 
         }
 
-        #Option 5 Select New Computer
+        #Option 5 Delete Computer
 
-        if ( $Selection -eq 5 ){
+        if ( $Selection -eq 5){
+
+            Get-ADComputer -Identity $ShortHand | Remove-ADComputer -Confirm:$false -Recursive
+            
+        }
+
+        #Option 6 Select New Computer
+
+        if ( $Selection -eq 6 ){
 
             $Secondary = 5
             $Compute = $null
@@ -116,16 +125,15 @@ while ( $Starter -lt 2) {
 
         }
 
-        #Option 6 Exit Script
+        #Option 7 Exit Script
 
-        if ( $Selection -eq 6){
+        if ( $Selection -eq 7){
 
             $Secondary = 5
             $Starter = 5
             exit
-
-
         }
+
         
     
     }
