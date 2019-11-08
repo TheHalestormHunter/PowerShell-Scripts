@@ -11,7 +11,7 @@
 
 if ( Test-Path -Path Cert:\LocalMachine\My\* ){
 
-    Write-Host -ForegroundColor "PKI Certs Installed"
+    Write-Host -ForegroundColor Green "PKI Certs Installed"
 
 }
 
@@ -27,13 +27,14 @@ else {
 
 #Run Config Manager Actions
 
+#Hardware Inventory Collection Cycle
+
+Invoke-WMIMethod -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000021}" | Out-Null
+Invoke-WMIMethod -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000022}" | Out-Null
+
 #Hardware Inventory
 
 Invoke-WMIMethod -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000001}" | Out-Null
-
-#Hardware Inventory Collection Cycle
-
-Invoke-WMIMethod -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{00000000-0000-0000-0000-000000000101}" | Out-Null
 
 #Software Inventory
 
