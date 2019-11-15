@@ -2,11 +2,26 @@
 # New Computer Configuration
 # Author: TheHalestormHunter
 # Started: 5-Nov-2019
-# Status: Untested
+# Status: Tested
 ######################################################
 
-#Check For PKI
+#Action Select
 
+Write-Host -ForegroundColor Green "================================="
+Write-Host -ForegroundColor Green " Select Actions "
+Write-Host -ForegroundColor Green "================================="
+Write-Host ""
+Write-Host -ForegroundColor Cyan "1) Run SCCM Config Actions ONLY"
+Write-Host ""
+Write-Host -ForegroundColor DarkYellow "2) Run Full Setup Script"
+
+
+$Select = Read-Host -Prompt "->"
+
+
+
+
+#Check For PKI
 #Get-ChildItem -Path Cert:\LocalMachine\SMS
 
 if ( Test-Path -Path Cert:\LocalMachine\My\* ){
@@ -42,14 +57,18 @@ Invoke-WMIMethod -Namespace root\ccm -Class SMS_CLIENT -Name TriggerSchedule "{0
 
 #Make My Life Easier Later on
 
-Enable-PSRemoting -Force
+if ( $Select -eq 2 ){
+    
+    Enable-PSRemoting -Force
 
-#Add User to RDP Group
+    #Add User to RDP Group
 
-Write-Host -ForegroundColor Green "Enter Future Enduser to add to RDP Group"
+    Write-Host -ForegroundColor Green "Enter Future Enduser to add to RDP Group"
 
-$ComUser = Read-Host -Prompt  "->"
+    $ComUser = Read-Host -Prompt  "->"
 
-Add-LocalGroupMember -Group "Remote Desktop Users" -Member $ComUser
+    Add-LocalGroupMember -Group "Remote Desktop Users" -Member $ComUser
 
+
+}
 

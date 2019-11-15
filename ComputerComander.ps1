@@ -79,7 +79,7 @@ while ( $Starter -lt 2) {
         if ( $Selection -eq 2){
 
             #Invoke-Command -ComputerName $ShortHand -ScriptBlock { logoff 2 }
-            Invoke-CimMethod -ClassName Win32_Operatingsystem -ComputerName $ShortHand -MethodName Win32Shutdown -Arguments @{ Flags = 4 }
+            Invoke-CimMethod -ClassName Win32_Operatingsystem -ComputerName $ShortHand -MethodName Win32Shutdown -Arguments @{ Flags = 4 } | Out-Null
 
         }
 

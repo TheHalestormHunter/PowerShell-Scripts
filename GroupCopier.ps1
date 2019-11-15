@@ -11,6 +11,7 @@ Write-Host -ForegroundColor Cyan "======================================="
 Write-Host -ForegroundColor Cyan "Current Time: $CTime "
 Write-Host -ForegroundColor Cyan "======================================="
 
+Write-Host ""
 
 Write-Host -ForegroundColor Green "======================================="
 Write-Host -ForegroundColor Green "Enter Computer to Clone Memberships From"
@@ -60,13 +61,15 @@ $STComputer = Get-ADComputer -Identity $NWComputer
 Clear-Host
 
 #Verifiy Selections
-
-Write-Host -ForegroundColor Yellow -BackgroundColor Black "Verify Selections"
+Write-Host -ForegroundColor Yellow -BackgroundColor Black "==========================================="
+Write-Host -ForegroundColor Yellow -BackgroundColor Black "           Verify Selections               "
 Write-Host -ForegroundColor Yellow -BackgroundColor Black "==========================================="
 Write-Host ""
 Write-Host -ForegroundColor Green "Selected Computer to Clone Group Membership: $OGComputer"
 Write-Host ""
-Write-Host "Groups to be cloned:"
+Write-Host -ForegroundColor Green "Groups to be cloned:"
+Write-Host ""
+#List Current Group Memberships
 Get-ADComputer -Identity $OGComputer | Get-ADPrincipalGroupMembership | Select-Object -ExpandProperty name
 Write-Host ""
 Write-Host -ForegroundColor Magenta "Selected Destinnation Computer: $NWComputer"
