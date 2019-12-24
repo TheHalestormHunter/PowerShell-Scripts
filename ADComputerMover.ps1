@@ -56,13 +56,15 @@ while (2 -gt 1) {
 
     Start-Sleep -Seconds 2
 
-    Get-ADComputer $comname | Move-ADObject -TargetPath "OU=Laptops,OU=_Windows 10,OU=Physical Workstations,OU=Machines,DC=int,DC=itagroup,DC=com"
+    Move-ADObject -Identity:"CN=$comname,OU=_Windows 10,OU=Physical Workstations,OU=Machines,DC=int,DC=itagroup,DC=com" -Server:"WIMDC10.int.itagroup.com" -TargetPath:"OU=Laptops,OU=_Windows 10,OU=Physical Workstations,OU=Machines,DC=int,DC=itagroup,DC=com"
 
     Write-Host -ForegroundColor Green "Done..."
 
     Pause
 
     Clear-Host
+
+    $loop1 = 1
 
 }
 

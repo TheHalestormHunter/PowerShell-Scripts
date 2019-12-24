@@ -5,6 +5,23 @@
 # Status: Tested
 ######################################################
 
+#Import Tools for PWSH 6
+
+$Version = $PSVersionTable.PSVersion.Major
+
+if ( $Version -ne 5 ) {
+
+    Install-Module -Name WindowsCompatibility -Confirm:$false
+
+    	
+    Import-Module -Name WindowsCompatibility
+
+
+    Import-WinModule -Name ActiveDirectory
+}
+
+#Timing Banner
+
 $CTime = Get-Date -Format g
 
 Write-Host -ForegroundColor Cyan "======================================="
