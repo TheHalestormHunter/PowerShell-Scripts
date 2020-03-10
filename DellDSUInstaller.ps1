@@ -24,9 +24,16 @@ Write-Host -ForegroundColor Cyan "======================================="
 Write-Host -ForegroundColor Cyan "Current Time: $CTime                   "
 Write-Host -ForegroundColor Cyan "======================================="
 
-#Add Check For Server Model?
+#Add Check For Server Model
 
-$ServerModel =   Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty Model
+if ( $(Get-ComputerInfo | Select-Object -ExpandProperty CsManufacturer) -ne "Dell Inc." ) {
+
+    Write-Host -ForegroundColor Red -BackgroundColor Black "This is NOT a Dell Server...Exiting!"
+    exit
+
+}
+
+$ServerModel = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty Model
 
 Write-Host -ForegroundColor Yellow -BackgroundColor Black "======================================================="
 Write-Host -ForegroundColor Yellow -BackgroundColor Black "Machine Info: $ServerModel                             "
@@ -58,8 +65,6 @@ dsu /n
 
 #Schedule Reboot
 
-
-
 $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date -Hour 2 -Minute 0 -Second 0).AddDays(1)
 $task = New-ScheduledTaskAction -Execute powershell.exe -Argument  "-c Restart-Computer -force"
 $user = whoami.exe
@@ -80,9 +85,10 @@ Register-ScheduledTask -TaskName 'Restart Server' -Trigger $trigger -User $user 
 
 Write-Host "Flushing Password Data..."
 
+Start-Sleep -Seconds 2
 
-$password = $null
-$securepassword = $null
+Clear-Variable -Name password -Force
+Clear-Variable -Name securepassword -Force
 
 Clear-Host
 
@@ -99,7 +105,13 @@ Write-Host -ForegroundColor Yellow -BackgroundColor Black "Suspending Bitlocker 
 Write-Host -ForegroundColor Yellow -BackgroundColor Black "======================================================="
 
 
-Suspend-BitLocker -MountPoint "C:" -RebootCount 2 -ErrorAction SilentlyContinue
+Get-BitLockerVolume | Suspend-BitLocker -RebootCount 2 -ErrorAction SilentlyContinue
+
+Clear-Host
+
+Write-Host -ForegroundColor Green "Done"
+Start-Sleep -Seconds 2
+
 
 
 
