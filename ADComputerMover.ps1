@@ -67,7 +67,7 @@ while (2 -gt 1) {
 
     Start-Sleep -Seconds 2
 
-    Move-ADObject -Identity:"CN=$comname,OU=Computers,DC=bhmanagement,DC=com" -Server:"daldc.bhmanagement.com" -TargetPath:"OU=BHCO,OU=Computers,OU=Corp,DC=bhmanagement,DC=com"
+   Move-ADObject -Identity:"CN=$comname,OU=_Windows 10,OU=Physical Workstations,OU=Machines,DC=int,DC=Contoso,DC=com" -Server:"WIMDC10.int.contoso.com" -TargetPath:"OU=Laptops,OU=_Windows 10,OU=Physical Workstations,OU=Machines,DC=int,DC=contoso,DC=com"
 
     Write-Host -ForegroundColor Green "Done..."
 
