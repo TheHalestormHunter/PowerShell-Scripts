@@ -38,7 +38,7 @@ Clear-Host
 
 while ( 2 -gt 1 ) {
 
-$freshdata = Get-Date -Format " MM/dd/yyyy HH:mm"
+$freshdata = Get-Date -Format "yyyy-MM-dd HH:mm"
 
 Write-Host -ForegroundColor Green "======================================================="
 

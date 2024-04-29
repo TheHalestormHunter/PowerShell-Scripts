@@ -37,7 +37,7 @@ $Starter = 1
 
 while ( $Starter -lt 2) {
 
-    $CTime = Get-Date -Format "dd-MMM-yyyy HH:mm"
+    $CTime = Get-Date -Format "yyyy-MM-dd HH:mm"
 
     Write-Host -ForegroundColor Cyan "======================================="
     Write-Host -ForegroundColor Cyan "Current Time: $CTime "
