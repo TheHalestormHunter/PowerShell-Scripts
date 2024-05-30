@@ -35,7 +35,7 @@ while (2 -gt 1) {
 
 
         Write-Host -ForegroundColor Magenta "Computers Default OU"
-        Get-ADComputer -Filter * -SearchBase "OU=Computers,DC=bhmanagement,DC=com" -SearchScope OneLevel | ForEach-Object {$_.Name}
+        Get-ADComputer -Filter * -SearchBase "OU=Computers,DC=contoso,DC=com" -SearchScope OneLevel | ForEach-Object {$_.Name}
         
 
         Write-Host -ForegroundColor Magenta "Type the name of the computer to be moved..."
